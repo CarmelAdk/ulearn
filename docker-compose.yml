@@ -1,0 +1,49 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: ulearn
+        uid: 1000
+      context: ./
+      dockerfile: .docker/app/Dockerfile
+    image: ulearn
+    container_name: ulearn-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - ulearn
+
+  db:
+    image: mysql:5.7
+    container_name: ulearn-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./.docker/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - ulearn
+
+  nginx:
+    image: nginx:alpine
+    container_name: ulearn-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./.docker/nginx:/etc/nginx/conf.d/
+    networks:
+      - ulearn
+
+networks:
+  ulearn:
+    driver: bridge
