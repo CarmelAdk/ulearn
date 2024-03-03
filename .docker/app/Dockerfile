@@ -1,10 +1,7 @@
 FROM composer as builder
-WORKDIR /app
-COPY composer.* ./
-RUN composer install --no-dev --ignore-platform-reqs --no-interaction --no-plugins --no-scripts --prefer-dist
+
 
 FROM php:7.4-fpm
-
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
@@ -31,7 +28,10 @@ WORKDIR /var/www
 
 USER ulearn
 
-COPY --from=builder /app/vendor /var/www/vendor
+COPY composer.* ./
+COPY --from=builder /usr/bin/composer /usr/bin/composer
+
+RUN composer install --no-dev --ignore-platform-reqs --no-interaction --no-plugins --no-scripts --prefer-dist
 
 RUN php artisan key:generate
 
