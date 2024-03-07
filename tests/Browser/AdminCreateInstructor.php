@@ -31,7 +31,7 @@ class AdminCreateInstructor extends DuskTestCase
                     ->click('button[type="submit"]');
 
             $browser->visit('/admin/users')
-                    ->assertSee('John Doe');
+                    ->assertSee('John Doe Active');
             
         });
     }
