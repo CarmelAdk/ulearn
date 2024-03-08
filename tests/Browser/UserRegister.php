@@ -26,8 +26,6 @@ class UserRegister extends DuskTestCase
 
             $browser->visit('/')
                     ->assertSee('Jane');
-
-
         });
     }
 }
