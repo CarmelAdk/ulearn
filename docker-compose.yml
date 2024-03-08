@@ -25,6 +25,7 @@ services:
       SERVICE_NAME: mysql
     volumes:
       - ./.docker/mysql:/docker-entrypoint-initdb.d
+      - ../db-data:/var/lib/mysql
     networks:
       - ulearn
 
