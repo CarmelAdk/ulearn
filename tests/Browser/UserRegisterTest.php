@@ -6,7 +6,7 @@ use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class UserRegister extends DuskTestCase
+class UserRegisterTest extends DuskTestCase
 {
     /**
      * A Dusk test example.
