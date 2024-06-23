@@ -125,7 +125,7 @@ class UserController extends Controller
         
 
         $user->is_active = $request->input('is_active');
-        $user->save();
+        //$user->save();
 
         if($request->exists('roles')) {
             $roles = $request->input('roles');
