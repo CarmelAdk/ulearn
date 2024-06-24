@@ -112,7 +112,6 @@ class UserController extends Controller
         } else {
             $user = new User();
             $success_message = 'User added successfully';
-            return $this->return_output('flash', 'success', $success_message, 'admin/users', '200');
         }
 
         $user->first_name = $request->input('first_name');
